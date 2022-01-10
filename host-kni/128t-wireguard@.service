@@ -1,0 +1,11 @@
+[Unit]
+Description=Wireguard tunnel for Session Smart Router
+Wants=network-online.target
+After=network-online.target
+
+[Service]
+ExecStart=/usr/sbin/ip netns exec %i /bin/wg-quick up /etc/128technology/wireguard/%i.conf
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target
