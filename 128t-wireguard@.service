@@ -4,8 +4,12 @@ Wants=network-online.target
 After=network-online.target
 
 [Service]
-ExecStart=/usr/sbin/ip netns exec %i /bin/wg-quick up /etc/128technology/wireguard/%i.conf
-Restart=on-failure
+Type=oneshot
+RemainAfterExit=yes
+ExecStart=/usr/sbin/ip netns exec %i /usr/bin/wg-quick up /etc/128technology/wireguard/%i.conf
+ExecStop=/usr/sbin/ip netns exec %i /usr/bin/wg-quick down /etc/128technology/wireguard/%i.conf
+ExecReload=/usr/sbin/ip netns exec %i /bin/bash -c 'exec /usr/bin/wg syncconf %i <(exec /usr/bin/wg-quick strip /etc/128technology/wireguard/%i.conf)'
+Environment=WG_ENDPOINT_RESOLUTION_RETRIES=infinity
 
 [Install]
 WantedBy=multi-user.target
