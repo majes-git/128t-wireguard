@@ -1,10 +1,11 @@
 #!/bin/bash
 
-NS_DIR=/etc/128technology/plugins/network-scripts/host/wireguard/
-mkdir $NS_DIR
-cp init monitoring $NS_DIR
-chmod 755 $NS_DIR/*
-ln -s init $NS_DIR/reinit
+SCRIPTS_DIR=/etc/128technology/plugins/network-scripts/wireguard
+mkdir $SCRIPTS_DIR
+cp namespace-scripts/* $SCRIPTS_DIR
+chmod 755 $SCRIPTS_DIR/*/*
+ln -s init $SCRIPTS_DIR/egress/reinit
+ln -s init $SCRIPTS_DIR/ingress/reinit
 
 mkdir /etc/128technology/wireguard/
 CONFIG=/etc/128technology/wireguard/_sample_.conf
