@@ -6,15 +6,15 @@ for arg in "$@"
 do
 case $arg in
   --namespace=*)
-  NAMESPACE="${arg#*=}"
+  NS="${arg#*=}"
   shift
   ;;
 esac
 done
 
-NAMESPACE_NAME=$(namespace_get_name $NAMESPACE)
+NS_NAME=$(namespace_get_name $NS)
 
-systemctl is-active --quiet 128t-wireguard@$NAMESPACE_NAME
+namespace_execute $NS wg show $NS_NAME >&- 2>&-
 if [ $? -eq 0 ]; then
   echo "up"
 else

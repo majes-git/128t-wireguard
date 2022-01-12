@@ -2,7 +2,7 @@
 
 SCRIPTS_DIR=/etc/128technology/plugins/network-scripts/wireguard
 mkdir $SCRIPTS_DIR
-cp namespace-scripts/* $SCRIPTS_DIR
+cp -r namespace-scripts/* $SCRIPTS_DIR
 chmod 755 $SCRIPTS_DIR/*/*
 ln -s init $SCRIPTS_DIR/egress/reinit
 ln -s init $SCRIPTS_DIR/ingress/reinit
